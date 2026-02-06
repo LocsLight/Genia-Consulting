@@ -434,6 +434,279 @@ h2 {
     transform: translateY(0);
 }
 
+.genia-about {
+    position: relative;
+    background: radial-gradient(circle at 10% 20%, rgba(155, 188, 255, 0.16), transparent 55%),
+        radial-gradient(circle at 90% 10%, rgba(107, 140, 255, 0.12), transparent 50%),
+        var(--bg);
+    overflow: hidden;
+}
+
+.genia-about::before,
+.genia-about::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.genia-about::before {
+    background: linear-gradient(135deg, rgba(11, 11, 13, 0.4), rgba(11, 11, 13, 0));
+    opacity: 0.7;
+}
+
+.genia-about::after {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: soft-light;
+    opacity: 0.3;
+}
+
+.genia-about .section-content {
+    position: relative;
+    z-index: 1;
+    gap: 3rem;
+}
+
+.genia-hero {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: center;
+}
+
+.genia-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 0.7rem;
+    color: var(--accent);
+}
+
+.genia-lead {
+    color: var(--text-muted);
+    max-width: 600px;
+    font-size: 1.05rem;
+}
+
+.genia-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.genia-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.8rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--text-dark);
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 20px 50px rgba(107, 140, 255, 0.25);
+    cursor: pointer;
+}
+
+.genia-cta:hover,
+.genia-cta:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 60px rgba(107, 140, 255, 0.35);
+}
+
+.genia-cta--ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.genia-cta-note {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.genia-hero-panel {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.genia-panel-card {
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.6rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.genia-panel-title {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+}
+
+.genia-panel-value {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.genia-panel-sub {
+    color: var(--text-muted);
+}
+
+.genia-value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.genia-card {
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2rem;
+    display: grid;
+    gap: 0.9rem;
+    min-height: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.genia-card:hover,
+.genia-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+}
+
+.genia-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(155, 188, 255, 0.12);
+    color: var(--accent);
+}
+
+.genia-card-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.genia-features {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.genia-accordion {
+    display: grid;
+    gap: 1rem;
+}
+
+.genia-accordion-item {
+    border-radius: 1.2rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+}
+
+.genia-accordion-trigger {
+    width: 100%;
+    text-align: left;
+    padding: 1.2rem 1.6rem;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.genia-accordion-trigger::after {
+    content: "+";
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+}
+
+.genia-accordion-trigger[aria-expanded="true"]::after {
+    transform: rotate(45deg);
+}
+
+.genia-accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.6rem;
+    color: var(--text-muted);
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.genia-accordion-panel.is-open {
+    padding-bottom: 1.2rem;
+}
+
+.genia-benefits,
+.genia-limits {
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+}
+
+.genia-benefits ul,
+.genia-limits ul {
+    display: grid;
+    gap: 0.6rem;
+    list-style: none;
+    padding-left: 0;
+}
+
+.genia-benefits li,
+.genia-limits li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--text-muted);
+}
+
+.genia-benefits li::before,
+.genia-limits li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.genia-conclusion {
+    text-align: center;
+    display: grid;
+    gap: 1.2rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.genia-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+    transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+}
+
+.genia-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+.genia-reveal[data-stagger] {
+    transition-delay: var(--genia-stagger, 0ms);
+}
+
 @media (max-width: 768px) {
     .site-header {
         padding: 1.2rem 6vw;
@@ -460,5 +733,11 @@ h2 {
     * {
         transition: none !important;
         animation: none !important;
+    }
+
+    .genia-reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
     }
 }
