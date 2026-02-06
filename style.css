@@ -434,6 +434,281 @@ h2 {
     transform: translateY(0);
 }
 
+.genia-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(150deg, rgba(155, 188, 255, 0.08), rgba(11, 11, 13, 0.98) 50%, rgba(155, 188, 255, 0.04));
+}
+
+.genia-section::before,
+.genia-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.genia-section::before {
+    background: radial-gradient(circle at top left, rgba(155, 188, 255, 0.18), transparent 55%);
+    opacity: 0.7;
+}
+
+.genia-section::after {
+    background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.04) 0%, transparent 40%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode: soft-light;
+    opacity: 0.3;
+}
+
+.genia-content {
+    position: relative;
+    z-index: 1;
+    gap: 3rem;
+}
+
+.genia-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    font-size: 0.75rem;
+    color: var(--accent);
+}
+
+.genia-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.genia-hero-text h3 {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.genia-hero-text p {
+    color: var(--text-muted);
+}
+
+.genia-hero-metrics {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.genia-metric-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    padding: 1.6rem;
+    display: grid;
+    gap: 0.4rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.genia-metric-value {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.genia-metric-suffix {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.genia-metric-label {
+    color: var(--text-muted);
+}
+
+.genia-value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.genia-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 1.8rem;
+    display: grid;
+    gap: 0.8rem;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.genia-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(155, 188, 255, 0.15);
+    border-color: rgba(155, 188, 255, 0.35);
+}
+
+.genia-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: rgba(155, 188, 255, 0.12);
+    color: var(--accent);
+}
+
+.genia-card-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.genia-accordion {
+    display: grid;
+    gap: 1rem;
+}
+
+.genia-accordion-title {
+    font-size: 1.6rem;
+}
+
+.genia-accordion-item {
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+}
+
+.genia-accordion-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 1.2rem 1.5rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    gap: 1rem;
+}
+
+.genia-accordion-trigger:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.genia-accordion-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(155, 188, 255, 0.4);
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.genia-accordion-icon::before,
+.genia-accordion-icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 12px;
+    height: 2px;
+    background: var(--accent);
+    transform: translate(-50%, -50%);
+}
+
+.genia-accordion-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.genia-accordion-item.is-open .genia-accordion-icon {
+    transform: rotate(45deg);
+    border-color: var(--accent);
+}
+
+.genia-accordion-panel {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease;
+}
+
+.genia-accordion-panel p {
+    padding: 0 1.5rem 1.4rem;
+    color: var(--text-muted);
+}
+
+.genia-band {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 1.8rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+}
+
+.genia-band-block ul {
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.genia-band-block li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+}
+
+.genia-band-block li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+.genia-conclusion {
+    display: grid;
+    gap: 1.2rem;
+    text-align: center;
+    align-items: center;
+}
+
+.genia-cta {
+    align-self: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.genia-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(155, 188, 255, 0.2);
+    animation: genia-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes genia-pulse {
+    0%, 100% {
+        box-shadow: 0 18px 40px rgba(155, 188, 255, 0.18);
+    }
+    50% {
+        box-shadow: 0 22px 50px rgba(155, 188, 255, 0.32);
+    }
+}
+
+.genia-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+    transition: opacity 1s ease, transform 1s ease, filter 1s ease;
+    transition-delay: var(--genia-delay, 0s);
+}
+
+.genia-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
 @media (max-width: 768px) {
     .site-header {
         padding: 1.2rem 6vw;
@@ -449,6 +724,14 @@ h2 {
 
     .timeline-row {
         grid-template-columns: 70px 1fr 60px;
+    }
+
+    .genia-hero {
+        gap: 2rem;
+    }
+
+    .genia-band {
+        padding: 1.6rem;
     }
 }
 
