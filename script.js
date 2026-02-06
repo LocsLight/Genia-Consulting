@@ -217,3 +217,148 @@ if (geniaCanvas && geniaHero) {
         animationFrame = requestAnimationFrame(render);
     }
 }
+
+const homeSection = document.querySelector('#home');
+const homeWaveCanvas = homeSection?.querySelector('.home-voicewave-canvas');
+
+if (homeSection && homeWaveCanvas) {
+    const ctx = homeWaveCanvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let samples = [];
+    let sampleCount = 0;
+    let head = 0;
+    let phase = 0;
+    let animationFrame;
+    let lastTime = 0;
+    let sampleProgress = 0;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+    const createSample = () => {
+        phase += 0.35;
+        const base =
+            Math.sin(phase * 0.85) * 0.55 +
+            Math.sin(phase * 1.45 + 1.2) * 0.3 +
+            Math.sin(phase * 2.05 + 2.4) * 0.15;
+        const noise = (Math.random() - 0.5) * 0.02;
+        return clamp(base + noise, -1, 1);
+    };
+
+    const setCanvasSize = () => {
+        const rect = homeSection.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        homeWaveCanvas.width = Math.max(1, Math.floor(width * dpr));
+        homeWaveCanvas.height = Math.max(1, Math.floor(height * dpr));
+        homeWaveCanvas.style.width = `${width}px`;
+        homeWaveCanvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        sampleCount = clamp(Math.round(width / 2), 320, 480);
+        samples = Array.from({ length: sampleCount }, () => createSample());
+        head = 0;
+        sampleProgress = 0;
+    };
+
+    const drawWave = (time) => {
+        ctx.clearRect(0, 0, width, height);
+        const centerY = height * 0.5;
+        const amplitudeBase = height * 0.28;
+        const breath = 1 + Math.sin(time * 0.0002) * 0.06;
+        const amplitude = amplitudeBase * breath;
+        const dx = width / (sampleCount - 1);
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.beginPath();
+        ctx.moveTo(0, centerY);
+        ctx.lineTo(width, centerY);
+        ctx.stroke();
+
+        const drawPath = () => {
+            let prevX = 0;
+            let prevY = centerY + samples[head] * amplitude;
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            for (let i = 1; i < sampleCount - 1; i += 1) {
+                const idx = (head + i) % sampleCount;
+                const x = i * dx;
+                const y = centerY + samples[idx] * amplitude;
+                const cx = (prevX + x) * 0.5;
+                const cy = (prevY + y) * 0.5;
+                ctx.quadraticCurveTo(prevX, prevY, cx, cy);
+                prevX = x;
+                prevY = y;
+            }
+            const lastIdx = (head + sampleCount - 1) % sampleCount;
+            const lastX = (sampleCount - 1) * dx;
+            const lastY = centerY + samples[lastIdx] * amplitude;
+            ctx.quadraticCurveTo(prevX, prevY, lastX, lastY);
+        };
+
+        const glowGradient = ctx.createLinearGradient(0, 0, width, 0);
+        glowGradient.addColorStop(0, 'rgba(255, 106, 0, 0.18)');
+        glowGradient.addColorStop(0.5, 'rgba(109, 40, 217, 0.2)');
+        glowGradient.addColorStop(1, 'rgba(168, 85, 247, 0.18)');
+        ctx.save();
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = glowGradient;
+        ctx.lineWidth = 12;
+        ctx.shadowColor = 'rgba(168, 85, 247, 0.25)';
+        ctx.shadowBlur = 18;
+        drawPath();
+        ctx.stroke();
+        ctx.restore();
+
+        const mainGradient = ctx.createLinearGradient(0, 0, width, 0);
+        mainGradient.addColorStop(0, 'rgba(255, 106, 0, 0.5)');
+        mainGradient.addColorStop(0.5, 'rgba(109, 40, 217, 0.48)');
+        mainGradient.addColorStop(1, 'rgba(255, 176, 0, 0.45)');
+        ctx.save();
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = mainGradient;
+        ctx.lineWidth = 4;
+        drawPath();
+        ctx.stroke();
+        ctx.restore();
+    };
+
+    const step = (time) => {
+        if (!document.body.contains(homeSection)) {
+            cancelAnimationFrame(animationFrame);
+            return;
+        }
+        if (!lastTime) {
+            lastTime = time;
+        }
+        const delta = Math.min((time - lastTime) / 1000, 0.05);
+        lastTime = time;
+        const dx = width / (sampleCount - 1);
+        const speedSamples = 60 / dx;
+        sampleProgress += speedSamples * delta;
+        while (sampleProgress >= 1) {
+            samples[head] = createSample();
+            head = (head + 1) % sampleCount;
+            sampleProgress -= 1;
+        }
+        drawWave(time);
+        animationFrame = requestAnimationFrame(step);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+        setCanvasSize();
+        drawWave(performance.now());
+    });
+
+    setCanvasSize();
+    resizeObserver.observe(homeSection);
+    if (reducedMotion) {
+        drawWave(performance.now());
+    } else {
+        animationFrame = requestAnimationFrame(step);
+    }
+}
