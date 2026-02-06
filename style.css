@@ -490,6 +490,7 @@ h2 {
 }
 
 .genia-hero-content {
+    padding: 3rem 3rem 3rem;
     position: relative;
     z-index: 1;
 }
@@ -499,7 +500,7 @@ h2 {
     height: 100%;
     display: block;
     filter: blur(12px) saturate(140%);
-    opacity: 0.9;
+    opacity: 0.3;
 }
 
 .genia-hero-glass,
