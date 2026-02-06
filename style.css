@@ -474,10 +474,53 @@ h2 {
 }
 
 .genia-hero {
+    position: relative;
+    overflow: hidden;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2.5rem;
     align-items: start;
+}
+
+.genia-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.genia-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.genia-waves-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: blur(12px) saturate(140%);
+    opacity: 0.9;
+}
+
+.genia-hero-glass,
+.genia-hero-grain {
+    position: absolute;
+    inset: 0;
+}
+
+.genia-hero-glass {
+    background: radial-gradient(circle at 20% 20%, rgba(255, 176, 0, 0.18), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.2), transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255, 106, 0, 0.16), transparent 55%),
+        linear-gradient(180deg, rgba(10, 10, 14, 0.18), rgba(10, 10, 14, 0.42));
+    backdrop-filter: blur(18px) saturate(140%);
+    mask-image: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.65) 55%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.1));
+}
+
+.genia-hero-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
 }
 
 .genia-hero-text h3 {
