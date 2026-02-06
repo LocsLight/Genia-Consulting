@@ -126,3 +126,94 @@ calendlyButtons.forEach((button) => {
         window.open(url, '_blank', 'noopener');
     });
 });
+
+const geniaCanvas = document.querySelector('#genia-about .genia-waves-canvas');
+const geniaHero = document.querySelector('#genia-about .genia-hero');
+
+if (geniaCanvas && geniaHero) {
+    const ctx = geniaCanvas.getContext('2d');
+    let animationFrame;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let dpr = window.devicePixelRatio || 1;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const blobs = [
+        { radius: 220, speed: 0.00045, offset: 0.2, drift: 0.6 },
+        { radius: 180, speed: 0.00055, offset: 1.4, drift: 0.5 },
+        { radius: 260, speed: 0.00035, offset: 2.6, drift: 0.7 },
+        { radius: 200, speed: 0.0005, offset: 3.8, drift: 0.4 },
+        { radius: 150, speed: 0.00065, offset: 5.1, drift: 0.6 },
+    ];
+
+    const colors = [
+        ['rgba(255, 106, 0, 0.5)', 'rgba(255, 176, 0, 0.05)'],
+        ['rgba(109, 40, 217, 0.5)', 'rgba(168, 85, 247, 0.05)'],
+        ['rgba(255, 122, 0, 0.45)', 'rgba(255, 176, 0, 0.05)'],
+        ['rgba(114, 60, 230, 0.45)', 'rgba(168, 85, 247, 0.05)'],
+        ['rgba(255, 140, 0, 0.4)', 'rgba(255, 176, 0, 0.05)'],
+    ];
+
+    const setCanvasSize = () => {
+        const rect = geniaHero.getBoundingClientRect();
+        dpr = window.devicePixelRatio || 1;
+        canvasWidth = rect.width;
+        canvasHeight = rect.height;
+        geniaCanvas.width = Math.max(1, Math.floor(canvasWidth * dpr));
+        geniaCanvas.height = Math.max(1, Math.floor(canvasHeight * dpr));
+        geniaCanvas.style.width = `${canvasWidth}px`;
+        geniaCanvas.style.height = `${canvasHeight}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const drawFrame = (time = 0) => {
+        if (!document.body.contains(geniaHero)) {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+            return;
+        }
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.globalCompositeOperation = 'lighter';
+        const baseX = canvasWidth * 0.5;
+        const baseY = canvasHeight * 0.5;
+        const pulse = 1 + Math.sin(time * 0.0002) * 0.08;
+
+        blobs.forEach((blob, index) => {
+            const drift = Math.sin(time * blob.speed + blob.offset) * blob.drift;
+            const wave = Math.cos(time * blob.speed * 0.8 + blob.offset) * blob.drift;
+            const x = baseX + drift * canvasWidth * 0.15 + Math.sin(time * blob.speed * 1.2 + index) * canvasWidth * 0.12;
+            const y = baseY + wave * canvasHeight * 0.15 + Math.cos(time * blob.speed * 1.1 + index) * canvasHeight * 0.1;
+            const radius = blob.radius * pulse * (0.9 + Math.sin(time * blob.speed + index) * 0.08);
+            const gradient = ctx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
+            gradient.addColorStop(0, colors[index][0]);
+            gradient.addColorStop(1, colors[index][1]);
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = colors[index][0];
+            ctx.shadowBlur = 40;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const render = (time) => {
+        drawFrame(time);
+        animationFrame = requestAnimationFrame(render);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+        setCanvasSize();
+        drawFrame(performance.now());
+    });
+
+    setCanvasSize();
+    resizeObserver.observe(geniaHero);
+    if (prefersReducedMotion) {
+        drawFrame(performance.now());
+    } else {
+        animationFrame = requestAnimationFrame(render);
+    }
+}
