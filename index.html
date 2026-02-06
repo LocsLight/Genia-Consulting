@@ -1,131 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agence d'agents vocaux à Strasbourg | Voxalys</title>
-    <meta name="description" content="Agence d'agents vocaux basée à Strasbourg pour serruriers, cabinets médicaux, dentistes, salons de coiffure et autres services locaux.">
+    <title>Agent virtuel de réception IA | Voxalys</title>
+    <meta name="description" content="Chaque appel manqué a un coût. Un agent virtuel de réception IA répond 24/7, stabilise votre activité et révèle vos opportunités invisibles.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="site-header">
         <a class="logo" href="#home">Voxalys</a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="nav-toggle__bar"></span>
-            <span class="nav-toggle__bar"></span>
-            <span class="nav-toggle__bar"></span>
-        </button>
-        <nav id="primary-navigation" class="site-nav" aria-label="Primary">
-            <a href="#home" class="nav-link">Accueil</a>
-            <a href="#services" class="nav-link">Solutions</a>
-            <a href="#process" class="nav-link">Méthode</a>
-            <a href="#stories" class="nav-link">Témoignages</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </nav>
+        <a class="cta cta--ghost" href="#experience">Découvrir l'expérience</a>
     </header>
 
-    <main class="snap-container">
-        <section id="home" class="snap-section hero" aria-labelledby="home-title">
+    <main>
+        <section id="home" class="section hero">
             <div class="section-content">
-                <p class="eyebrow">Strasbourg · Agents vocaux IA.</p>
-                <h1 id="home-title">L'agence d'agents vocaux qui répond à chaque appel, 24/7.</h1>
-                <p class="lead">
-                    Voxalys conçoit des assistants vocaux pour les serruriers, cabinets médicaux, dentistes,
-                    salons de coiffure et autres commerces de proximité. Ne perdez plus d'appels : nos agents
-                    prennent les rendez-vous, qualifient les demandes et rassurent vos clients.
-                </p>
+                <p class="eyebrow">Agent virtuel de réception IA</p>
+                <h1>Chaque appel manqué a un coût.</h1>
+                <p class="lead">Temps perdu. Stress inutile. Chiffre d'affaires invisible.</p>
+                <div class="hero-flow" aria-hidden="true">
+                    <div class="flow-stage">
+                        <span class="flow-label">Appels entrants</span>
+                        <div class="flow-line"></div>
+                    </div>
+                    <div class="flow-stage flow-stage--muted">
+                        <span class="flow-label">Appels manqués</span>
+                        <div class="flow-line"></div>
+                    </div>
+                    <div class="flow-stage flow-stage--active">
+                        <span class="flow-label">Agent IA</span>
+                        <div class="flow-line"></div>
+                    </div>
+                </div>
                 <div class="cta-group">
-                    <a class="button" href="#services">Découvrir les solutions</a>
-                    <a class="button button--ghost" href="#contact">Parler à un expert</a>
+                    <a class="cta" href="#losses">Voir l'impact réel</a>
+                    <a class="cta cta--ghost" href="#experience">Parler à un expert</a>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="snap-section" aria-labelledby="services-title">
+        <section id="losses" class="section">
             <div class="section-content">
-                <h2 id="services-title">Des agents vocaux adaptés à vos métiers.</h2>
-                <div class="card-grid">
-                    <article class="card">
-                        <h3>Accueil d'appels 24/7</h3>
-                        <p>Répondez instantanément aux urgences serrurerie, demandes d'information ou appels de nuit.</p>
+                <div class="section-header">
+                    <h2>Appels manqués = pertes réelles.</h2>
+                    <p class="muted">Ce que vous ne voyez pas est souvent ce qui coûte le plus.</p>
+                </div>
+                <div class="stat-grid">
+                    <article class="stat-card reveal">
+                        <p class="stat-label">Appels manqués / jour</p>
+                        <p class="stat-value" data-count="18">0</p>
+                        <p class="stat-note">Heures de pointe saturées.</p>
                     </article>
-                    <article class="card">
-                        <h3>Prise de rendez-vous automatique</h3>
-                        <p>Synchronisez vos agendas médicaux, dentaires ou beauté et réduisez les no-shows.</p>
+                    <article class="stat-card reveal">
+                        <p class="stat-label">Conversion moyenne</p>
+                        <p class="stat-value" data-count="32">0</p>
+                        <p class="stat-note">Sur chaque échange abouti.</p>
                     </article>
-                    <article class="card">
-                        <h3>Qualification & suivi client</h3>
-                        <p>Collectez les informations clés, priorisez les urgences et relancez les prospects.</p>
+                    <article class="stat-card reveal">
+                        <p class="stat-label">Chiffre non capté</p>
+                        <p class="stat-value" data-count="8200">0</p>
+                        <p class="stat-note">€ estimés / mois.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="process" class="snap-section alt" aria-labelledby="process-title">
-            <div class="section-content">
-                <h2 id="process-title">Une mise en place rapide, pensée pour Strasbourg.</h2>
-                <ol class="step-list">
-                    <li>
-                        <span class="step-number">01</span>
-                        <div>
-                            <h3>Audit métier</h3>
-                            <p>Nous analysons vos flux d'appels, vos urgences et le ton qui rassure vos clients.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="step-number">02</span>
-                        <div>
-                            <h3>Configuration sur-mesure</h3>
-                            <p>Scripts vocaux, connecteurs d'agenda et scénarios d'escalade sont adaptés à votre équipe.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="step-number">03</span>
-                        <div>
-                            <h3>Suivi & optimisation</h3>
-                            <p>Rapports d'appels, amélioration continue et accompagnement local depuis Strasbourg.</p>
-                        </div>
-                    </li>
-                </ol>
-            </div>
-        </section>
-
-        <section id="stories" class="snap-section" aria-labelledby="stories-title">
-            <div class="section-content">
-                <h2 id="stories-title">Ils gagnent du temps et des clients.</h2>
-                <div class="quote-grid">
-                    <figure>
-                        <blockquote>“Nos dépannages serrurerie sont mieux filtrés et on ne rate plus les urgences.”</blockquote>
-                        <figcaption>— Équipe Serrurerie Kruger, Strasbourg</figcaption>
-                    </figure>
-                    <figure>
-                        <blockquote>“Les rendez-vous sont confirmés automatiquement, le secrétariat respire.”</blockquote>
-                        <figcaption>— Cabinet Dentaire Saint-Thomas</figcaption>
-                    </figure>
+        <section id="stress" class="section section--dark">
+            <div class="section-content split">
+                <div class="split-text">
+                    <h2>Le stress que vous n'avez plus à gérer.</h2>
+                    <p class="lead">Téléphone qui sonne sans réponse. Interruption constante. Charge mentale. L'agent prend le relais, l'activité continue sans pression.</p>
+                    <p class="highlight">Votre entreprise répond. Vous respirez.</p>
+                </div>
+                <div class="split-visual reveal">
+                    <div class="signal-stack">
+                        <div class="signal"></div>
+                        <div class="signal"></div>
+                        <div class="signal"></div>
+                        <div class="signal signal--active"></div>
+                    </div>
+                    <p class="visual-caption">Flux d'appels stabilisé.</p>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="snap-section alt" aria-labelledby="contact-title">
+        <section id="time" class="section">
             <div class="section-content">
-                <h2 id="contact-title">Parlons de vos appels.</h2>
-                <p class="lead">Décrivez votre activité et recevez une démonstration d'agent vocal adaptée à votre secteur.</p>
-                <form class="contact-form">
-                    <label>
-                        <span>Nom</span>
-                        <input type="text" name="name" placeholder="Votre nom" required>
-                    </label>
-                    <label>
-                        <span>Email</span>
-                        <input type="email" name="email" placeholder="vous@example.com" required>
-                    </label>
-                    <label>
-                        <span>Message</span>
-                        <textarea name="message" rows="4" placeholder="Décrivez votre activité et vos besoins"></textarea>
-                    </label>
-                    <button class="button" type="submit">Demander une démo</button>
-                </form>
+                <div class="section-header">
+                    <h2>Du temps retrouvé.</h2>
+                    <p class="muted">Le temps est la ressource la plus précieuse. Nous le protégeons.</p>
+                </div>
+                <div class="timeline reveal">
+                    <div class="timeline-row">
+                        <span class="timeline-label">Lundi</span>
+                        <div class="timeline-track"><span style="width: 65%"></span></div>
+                        <span class="timeline-value">+2h</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Mercredi</span>
+                        <div class="timeline-track"><span style="width: 72%"></span></div>
+                        <span class="timeline-value">+2h30</span>
+                    </div>
+                    <div class="timeline-row">
+                        <span class="timeline-label">Vendredi</span>
+                        <div class="timeline-track"><span style="width: 82%"></span></div>
+                        <span class="timeline-value">+3h</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data" class="section section--dark">
+            <div class="section-content">
+                <div class="section-header">
+                    <h2>La data qui éclaire les décisions.</h2>
+                    <p class="muted">Vous ne gérez plus à l'instinct. Vous décidez avec précision.</p>
+                </div>
+                <div class="data-grid reveal">
+                    <div class="data-card">
+                        <p class="data-title">Volume d'appels</p>
+                        <div class="chart">
+                            <span style="height: 35%"></span>
+                            <span style="height: 60%"></span>
+                            <span style="height: 80%"></span>
+                            <span style="height: 55%"></span>
+                            <span style="height: 70%"></span>
+                        </div>
+                        <p class="data-note">Pics entre 11h et 15h.</p>
+                    </div>
+                    <div class="data-card">
+                        <p class="data-title">Rendez-vous pris</p>
+                        <p class="data-value">78%</p>
+                        <p class="data-note">Taux moyen hebdomadaire.</p>
+                    </div>
+                    <div class="data-card">
+                        <p class="data-title">Appels manqués évités</p>
+                        <p class="data-value">+91%</p>
+                        <p class="data-note">Depuis l'activation IA.</p>
+                    </div>
+                    <div class="data-card">
+                        <p class="data-title">Durée moyenne</p>
+                        <p class="data-value">3m 12s</p>
+                        <p class="data-note">Conversation fluide et ciblée.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="availability" class="section">
+            <div class="section-content split">
+                <div class="split-text">
+                    <h2>Prise de rendez-vous 24/7.</h2>
+                    <p class="lead">Qualification intelligente, synchronisation agenda, disponibilité continue.</p>
+                    <p class="highlight">Même quand vous n'êtes pas disponible, votre entreprise l'est.</p>
+                </div>
+                <div class="split-visual reveal">
+                    <div class="availability-ring">
+                        <span>24/7</span>
+                    </div>
+                    <p class="visual-caption">Toujours disponible.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="clarity" class="section section--dark">
+            <div class="section-content">
+                <h2>Vision globale & sérénité.</h2>
+                <p class="lead">Organisation claire, visibilité exceptionnelle, activité sous contrôle.</p>
+                <p class="highlight">Moins de chaos. Plus de clarté.</p>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <div class="section-content conclusion">
+                <h2>Un agent qui répond. Une organisation qui progresse.</h2>
+                <p class="lead">L'expérience premium qui transforme chaque appel en opportunité.</p>
+                <a class="cta" href="#home">Découvrir l'expérience</a>
             </div>
         </section>
     </main>
