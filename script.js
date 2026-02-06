@@ -127,6 +127,164 @@ calendlyButtons.forEach((button) => {
     });
 });
 
+const homeSection = document.querySelector('#home') || document.querySelector('h1')?.closest('section');
+const homeWaveCanvas = homeSection?.querySelector('.home-voicewave-canvas');
+
+if (homeSection && homeWaveCanvas) {
+    const ctx = homeWaveCanvas.getContext('2d');
+    let animationFrame;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pointCount = 220;
+    const noiseSize = 72;
+
+    const createNoise = () =>
+        Array.from({ length: noiseSize }, () => Math.random() * 2 - 1);
+
+    const noisePrimary = createNoise();
+    const noiseSecondary = createNoise();
+
+    const smoothStep = (value) => value * value * (3 - 2 * value);
+
+    const sampleNoise = (noise, x) => {
+        const scaled = x * noiseSize;
+        const index = Math.floor(scaled) % noiseSize;
+        const nextIndex = (index + 1) % noiseSize;
+        const fraction = scaled - Math.floor(scaled);
+        const eased = smoothStep(fraction);
+        return noise[index] + (noise[nextIndex] - noise[index]) * eased;
+    };
+
+    const setCanvasSize = () => {
+        const rect = homeSection.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvasWidth = rect.width;
+        canvasHeight = rect.height;
+        homeWaveCanvas.width = Math.max(1, Math.floor(canvasWidth * dpr));
+        homeWaveCanvas.height = Math.max(1, Math.floor(canvasHeight * dpr));
+        homeWaveCanvas.style.width = `${canvasWidth}px`;
+        homeWaveCanvas.style.height = `${canvasHeight}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const drawWaveLayer = (options, time) => {
+        const centerY = canvasHeight * 0.5;
+        const breath = 0.75 + Math.sin(time * 0.0007) * 0.2;
+        const amplitude = canvasHeight * 0.12 * breath * options.scale;
+        const timeShift = time * options.speed;
+        const gradient = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+        gradient.addColorStop(0, options.colors[0]);
+        gradient.addColorStop(1, options.colors[1]);
+
+        ctx.save();
+        ctx.beginPath();
+        for (let i = 0; i < pointCount; i += 1) {
+            const t = i / (pointCount - 1);
+            const noiseValue =
+                (sampleNoise(options.noise, t * 1.3 + timeShift) +
+                    0.5 * sampleNoise(options.noise, t * 3.1 - timeShift * 1.2)) /
+                1.5;
+            const y = centerY + noiseValue * amplitude;
+            const x = t * canvasWidth;
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = options.lineWidth;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.shadowColor = options.glow;
+        ctx.shadowBlur = options.blur;
+        ctx.globalAlpha = options.opacity;
+        ctx.stroke();
+        ctx.restore();
+    };
+
+    const drawFrame = (time = 0) => {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        const centerY = canvasHeight * 0.5;
+
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, centerY);
+        ctx.lineTo(canvasWidth, centerY);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.globalCompositeOperation = 'lighter';
+
+        drawWaveLayer(
+            {
+                colors: ['rgba(109, 40, 217, 0.55)', 'rgba(168, 85, 247, 0.22)'],
+                glow: 'rgba(168, 85, 247, 0.4)',
+                lineWidth: 10,
+                blur: 28,
+                opacity: 0.7,
+                noise: noiseSecondary,
+                scale: 1.05,
+                speed: prefersReducedMotion ? 0 : 0.00012,
+            },
+            time
+        );
+
+        drawWaveLayer(
+            {
+                colors: ['rgba(255, 106, 0, 0.75)', 'rgba(255, 176, 0, 0.4)'],
+                glow: 'rgba(255, 176, 0, 0.4)',
+                lineWidth: 6,
+                blur: 18,
+                opacity: 0.85,
+                noise: noisePrimary,
+                scale: 0.9,
+                speed: prefersReducedMotion ? 0 : 0.00018,
+            },
+            time
+        );
+
+        ctx.globalCompositeOperation = 'screen';
+        drawWaveLayer(
+            {
+                colors: ['rgba(255, 255, 255, 0.05)', 'rgba(255, 255, 255, 0.02)'],
+                glow: 'rgba(255, 255, 255, 0.2)',
+                lineWidth: 1.5,
+                blur: 6,
+                opacity: 0.6,
+                noise: noisePrimary,
+                scale: 0.75,
+                speed: prefersReducedMotion ? 0 : 0.00016,
+            },
+            time
+        );
+
+        ctx.globalCompositeOperation = 'source-over';
+    };
+
+    const render = (time) => {
+        drawFrame(time);
+        animationFrame = requestAnimationFrame(render);
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+        setCanvasSize();
+        drawFrame(performance.now());
+    });
+
+    setCanvasSize();
+    resizeObserver.observe(homeSection);
+    if (prefersReducedMotion) {
+        drawFrame(performance.now());
+    } else {
+        animationFrame = requestAnimationFrame(render);
+    }
+}
+
 const geniaCanvas = document.querySelector('#genia-about .genia-waves-canvas');
 const geniaHero = document.querySelector('#genia-about .genia-hero');
 
